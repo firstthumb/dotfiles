@@ -1,0 +1,69 @@
+export PATH="/usr/local/bin:$PATH"
+
+# History
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+
+HISTSIZE=50000
+SAVEHIST=10000
+
+
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
+source ~/antigen.zsh
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle fzf
+antigen bundle node
+antigen bundle yarn
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle command-not-found
+antigen bundle thefuck
+antigen bundle Aloxaf/fzf-tab
+antigen apply
+
+ZSH_THEME=""
+
+fpath+=$HOME/.zsh/pure
+autoload -U promptinit; promptinit
+PURE_CMD_MAX_EXEC_TIME=10
+zstyle :prompt:pure:path color gray
+zstyle ':prompt:pure:prompt:*' color cyan
+zstyle :prompt:pure:git:stash show yes
+prompt pure
+
+export SUDO_EDITOR="nvim"
+export REACT_EDITOR=nvim
+
+
+# ALIAS
+alias vi="nvim"
+alias vim="nvim"
+alias d="docker"
+alias dc="docker-compose"
+alias cd=' cd'
+alias ..=' cd ..; ls'
+alias ...=' cd ..; cd ..; ls'
+alias ....=' cd ..; cd ..; cd ..; ls'
+alias cd..='..'
+alias cd...='...'
+alias cd....='....'
+alias k9='kill -9'
+
+
+[ -f ~/.zshrc.private ] && source ~/.zshrc.private
+
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+export PATH=$PATH:$HOME/.arkade/bin/
+export PATH=$PATH:$(go env GOPATH)/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
